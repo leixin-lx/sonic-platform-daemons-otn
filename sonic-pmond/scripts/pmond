@@ -185,11 +185,17 @@ class PmondDaemon() :
             PmondDaemon.log.log_info(f"{periph_type._VALUES_TO_NAMES[type]} thread start")
             p.start()
 
+    def start_fan_control_thread(self) :
+        fc = fan.FanControl()
+        fc.start()
+        PmondDaemon.log.log_info("fan_control_thread thread start")
+
     # Run daemon
     def exec(self):
         self.start_reboot_thread()
         self.start_osc_threads()
         self.start_periph_threads()
+        self.start_fan_control_thread()
 
 #
 # Main =========================================================================
